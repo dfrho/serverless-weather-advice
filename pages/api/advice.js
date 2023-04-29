@@ -9,13 +9,13 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function handler(req, res) {
-  const { prompt, max_tokens, stop } = req.body;
+  const { prompt, stop } = req.body;
   try {
     const { data } = await openai.createCompletion({
       model: 'text-davinci-003',
       prompt,
       temperature: 0.9,
-      max_tokens,
+      max_tokens: 150,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0.6,
