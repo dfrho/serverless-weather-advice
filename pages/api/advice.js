@@ -18,6 +18,10 @@ export default async function handler(req, res) {
     return;
   }
 
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   const { prompt, stop } = req.body;
   try {
     const { data } = await openai.createCompletion({
@@ -30,7 +34,6 @@ export default async function handler(req, res) {
       presence_penalty: 0.6,
       stop,
     });
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.status(200).json(data);
   } catch (error) {
     console.error(error);
